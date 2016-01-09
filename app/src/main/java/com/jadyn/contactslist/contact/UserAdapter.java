@@ -69,7 +69,7 @@ public class UserAdapter extends BaseAdapter{
                 Toast.makeText(mContext,users.get(position).getName(),Toast.LENGTH_SHORT).show();
             }
         });
-
+        //当前的item的title与上一个item的title不同的时候回显示title(A,B,C......)
         if(position == getFirstLetterPosition(position) && !users.get(position).getLetter().equals("@")){
             viewHolder.tvTitle.setVisibility(View.VISIBLE);
             viewHolder.tvTitle.setText(users.get(position).getLetter().toUpperCase());
@@ -82,7 +82,8 @@ public class UserAdapter extends BaseAdapter{
     }
 
     /**
-     * 顺序遍历所有元素．找到与指定位置元素相同ascii的第一个字符位置
+     * 顺序遍历所有元素．找到position对应的title是什么（A,B,C?）然后找这个title下的第一个item对应的position
+     *
      * @param position
      * @return
      */
@@ -99,6 +100,11 @@ public class UserAdapter extends BaseAdapter{
         return -1;
     }
 
+    /**
+     * 顺序遍历所有元素．找到letter下的第一个item对应的position
+     * @param letter
+     * @return
+     */
     public int getFirstLetterPosition(String letter){
         int size = users.size();
         for (int i = 0; i < size; i++) {

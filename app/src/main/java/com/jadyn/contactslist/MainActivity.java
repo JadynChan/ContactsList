@@ -43,6 +43,7 @@ public class MainActivity extends ActionBarActivity implements SideBarView.Lette
         String[] headArray = getResources().getStringArray(R.array.head);
         mTip = (TextView) findViewById(R.id.tip);
 
+        //模拟添加数据到Arraylist
         int length = contactsArray.length;
         ArrayList<User> users = new ArrayList<>();
         for (int i = 0; i < length; i++) {
@@ -65,22 +66,18 @@ public class MainActivity extends ActionBarActivity implements SideBarView.Lette
             users.add(user);
         }
 
+        //排序
         Collections.sort(users, new CompareSort());
 
+        //设置数据
         mAdapter = new UserAdapter(this);
         mAdapter.setData(users);
         mListview.setAdapter(mAdapter);
 
+        //设置回调
         sideBarView.setOnLetterSelectListen(this);
 
     }
-
-
-
-
-
-
-
 
 
     @Override
