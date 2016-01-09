@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SideBarView">
+        <attr name="sidebar_nor_background" format="color"/>
+        <attr name="sidebar_press_background" format="color"/>
+        <attr name="sidebar_text_size" format="dimension"/>
+        <attr name="sidebar_text_color_nor" format="color"/>
+        <attr name="sidebar_text_color_press" format="color"/>
+
+    </declare-styleable>
+
+
+</resources>
