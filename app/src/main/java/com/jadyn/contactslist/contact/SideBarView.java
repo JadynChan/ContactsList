@@ -164,12 +164,16 @@ public class SideBarView extends View{
                 break;
             case MeasureSpec.AT_MOST:
                 case MeasureSpec.UNSPECIFIED:
-                result = isWidth ? getSuggestedMinimumWidth():getSuggestedMinimumHeight();
-                result += padding;
-                if(isWidth)
-                    result = Math.min(result,size);
-                else
-                    result = Math.max(result,size);
+                    float textWidth = paint.measureText(b[0]);
+                    if(isWidth){
+                        result = getSuggestedMinimumWidth() > textWidth ? getSuggestedMinimumWidth() : (int) textWidth;
+                        result += padding;
+                        result = Math.min(result,size);
+                    }else{
+                        result = size;
+                        result = Math.max(result,size);
+                    }
+
                 break;
         }
 
