@@ -11,7 +11,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.meiriq.testsdk.R;
+import com.jadyn.contactslist.R;
+
 
 /**
  * Created by Administrator on 2016/1/8.
@@ -103,7 +104,7 @@ public class SideBarView extends View{
                     //切换到其他字母
                     selectPos = position;
                     if(listener != null)
-                        listener.onLetterSelected(b[selectPos]);
+                        listener.onLetterChanged(b[selectPos]);
                     invalidate();
                 }
 
@@ -113,6 +114,9 @@ public class SideBarView extends View{
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 setBackgroundColor(sideBarBgNorColor);
+                if(listener != null){
+                    listener.onLetterReleased(b[selectPos]);
+                }
                 break;
         }
 
@@ -125,7 +129,6 @@ public class SideBarView extends View{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        Log.d("unlock","onDraw");
         height = getHeight();
         width = getWidth();
         perHeight = height / b.length;
@@ -186,8 +189,10 @@ public class SideBarView extends View{
     }
 
 
-    interface LetterSelectListener{
-        void onLetterSelected(String latter);
+    public interface LetterSelectListener{
+        void onLetterSelected(String letter);
+        void onLetterChanged(String letter);
+        void onLetterReleased(String letter);
     }
 
     private LetterSelectListener listener;

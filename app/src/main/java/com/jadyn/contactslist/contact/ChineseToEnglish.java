@@ -1,5 +1,8 @@
 package com.jadyn.contactslist.contact;
 
+import android.util.Log;
+
+import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -431,21 +434,27 @@ public class ChineseToEnglish {
      * @return int 错误返回 0,否则返回ascii
      */
     public static int getCnAscii(char cn) {
-        byte[] bytes = (String.valueOf(cn)).getBytes();
-        if (bytes == null || bytes.length > 2 || bytes.length <= 0) { //错误
-            return 0;
-        }
-        if (bytes.length == 1) { //英文字符
-            return bytes[0];
-        }
-        if (bytes.length == 2) { //中文字符
-            int hightByte = 256 + bytes[0];
-            int lowByte = 256 + bytes[1];
+        byte[] bytes ;
+        try {
+            bytes = (String.valueOf(cn)).getBytes("gb2312");
+            if (bytes == null || bytes.length > 2 || bytes.length <= 0) { //错误
+                return 0;
+            }
+            if (bytes.length == 1) { //英文字符
+                return bytes[0];
+            }
+            if (bytes.length == 2) { //中文字符
+                int hightByte = 256 + bytes[0];
+                int lowByte = 256 + bytes[1];
 
-            int ascii = (256 * hightByte + lowByte) - 256 * 256;
+                int ascii = (256 * hightByte + lowByte) - 256 * 256;
 
-            return ascii;
+                return ascii;
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
+
         return 0; //错误
     }
 
